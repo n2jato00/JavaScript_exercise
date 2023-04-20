@@ -1,0 +1,102 @@
+/* Styles for the "ADD" button */
+#add-btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Styles for the form popup */
+.form-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #ccc;
+  background-color: #f2f2f2;
+  padding: 20px;
+  z-index: 1;
+}
+
+.form-popup h2 {
+  margin-top: 0;
+}
+
+.form-popup label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-popup input[type="text"],
+.form-popup select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.form-popup button[type="submit"],
+.form-popup button[type="button"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-popup button[type="submit"]:hover,
+.form-popup button[type="button"]:hover {
+  background-color: #45a049;
+}
+
+/* Styles for the filter */
+.filter {
+  margin-bottom: 20px;
+}
+
+.filter label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.filter select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Styles for the grid */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.question {
+  border: 1px solid #ccc;
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.question h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.question p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
