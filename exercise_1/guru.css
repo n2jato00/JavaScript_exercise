@@ -28,6 +28,7 @@
 
 .form-popup h2 {
   margin-top: 0;
+  display: block;
 }
 
 .form-popup label {

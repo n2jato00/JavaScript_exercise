@@ -8,7 +8,7 @@ const addButton = document.getElementById("add-btn");
 const cancelButtons = document.querySelectorAll("button[type='button']");
 
 const openForm = () => {
-  document.getElementById("form-popup").style.display = "flex";
+  document.getElementById("form-popup").style.display = "block";
 };
 
 const closeForm = () => {
