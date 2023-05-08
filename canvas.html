@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="ledCanvas" width="300" height="300"></canvas>
+  <br />
+  <button onclick="saveEmoji()">Save</button>
+  <br />
+  <input type="text" id="emojiName" placeholder="Enter emoji name">
+  <div id="savedEmojis"></div>
+
+  <script>
+    // Create an 8x8 virtual led screen
+    const canvas = document.getElementById("ledCanvas");
+    const context = canvas.getContext("2d");
+    const ledSize = 25;
+    const ledGap = 5;
+    const savedEmojis = JSON.parse(localStorage.getItem("savedEmojis")) || [];
+
+    for (let row = 0; row < 8; row++) {
+      for (let col = 0; col < 8; col++) {
+        context.fillStyle = "#000000"; // Set the initial color to off (black)
+        context.fillRect(
+          col * (ledSize + ledGap),
+          row * (ledSize + ledGap),
+          ledSize,
+          ledSize
+        );
+      }
+    }
+
+    // Add click event listener to toggle the LED on/off
+    canvas.addEventListener("click", function (event) {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      const ledRow = Math.floor(y / (ledSize + ledGap));
+      const ledCol = Math.floor(x / (ledSize + ledGap));
+
+      // Toggle the LED state
+      context.fillStyle =
+        context.fillStyle === "#000000" ? "#FF0000" : "#000000";
+      context.fillRect(
+        ledCol * (ledSize + ledGap),
+        ledRow * (ledSize + ledGap),
+        ledSize,
+        ledSize
+      );
+    });
+
+    // Save the emoji
+    function saveEmoji() {
+      const emojiNameInput = document.getElementById("emojiName");
+      const emojiName = emojiNameInput.value;
+      if (emojiName.trim() === "") {
+        alert("Please enter an emoji name.");
+        return;
+      }
+      const dataURL = canvas.toDataURL();
+
+      // Save the emoji to localStorage
+      savedEmojis.push({ name: emojiName, image: dataURL });
+      localStorage.setItem("savedEmojis", JSON.stringify(savedEmojis));
+
+      // Show the saved emoji below the virtual led screen
+      const savedEmojisContainer = document.getElementById("savedEmojis");
+      const emojiContainer = document.createElement("div");
+      emojiContainer.classList.add("emoji-item");
+      const img = document.createElement("img");
+      img.src = dataURL;
+      img.alt = emojiName;
+      const name = document.createElement("span");
+      name.textContent = emojiName;
+      emojiContainer.appendChild(img);
+      emojiContainer.appendChild(name);
+      savedEmojisContainer.appendChild(emojiContainer);
+
+      // Clear the canvas
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      for (let row = 0; row < 8; row++) {
+        for (let col = 0; col < 8; col++) {
+          context.fillStyle = "#000000"; // Set the initial color to off (black)
+          context.fillRect(
+            col * (ledSize + ledGap),
+            row * (ledSize + ledGap),
+            ledSize,
+            ledSize
+          );
+        }
+      }
+
+        // Clear the input field
+        emojiNameInput.value = "";
+    }
+
+    // Display saved emojis on page load
+    function displaySavedEmojis() {
+      const savedEmojisContainer = document.getElementById("savedEmojis");
+
+      for (const emoji of savedEmojis) {
+        const emojiContainer = document.createElement("div");
+        emojiContainer.classList.add("emoji-item");
+        const img = document.createElement("img");
+        img.src = emoji.image;
+        img.alt = emoji.name;
+        const name = document.createElement("span");
+        name.textContent = emoji.name;
+        emojiContainer.appendChild(img);
+        emojiContainer.appendChild(name);
+        savedEmojisContainer.appendChild(emojiContainer);
+      }
+    }
+
+    // Call the function to display saved emojis on page load
+    displaySavedEmojis();
+  </script>
+</body>
+</html>
+
